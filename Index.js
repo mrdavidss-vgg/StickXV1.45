@@ -10,8 +10,7 @@ const clientId = 'CLIENTID'; //the bots client id// user id
 const advertise = false; //if you want it to send server invite after command ran keep it true if not keep it false
 const serverinvite = "sever invite"; //server invite for when command ran it replies with server invite
 const madeby = "mrdavidss"; //for embed like "Made By {name}"
-const apikey = "E99l9NOctud3vmu6bPne"; //api key using stickx. only change when key is invalid https://discord.gg/AqXmxKV8s8 new key in that server
-
+const apikey = "FfWIqEqREs7-3mcz26eDAA"; 
 const commands = [
     {
         name: 'fluxus',
@@ -50,30 +49,6 @@ const commands = [
         ],
     },
     {
-        name: 'hydrogen',
-        description: 'Gets Hydrogen Key',
-        options: [
-            {
-                name: 'link',
-                type: 3,
-                description: 'The Hydrogen link',
-                required: true,
-            },
-        ],
-    },
-    {
-        name: 'hohohub',
-        description: 'Gets hohohub Key',
-        options: [
-            {
-                name: 'link',
-                type: 3,
-                description: 'The hohohub link',
-                required: true,
-            },
-        ],
-    },
-    {
         name: 'trigon',
         description: 'Gets Trigon Key',
         options: [
@@ -81,18 +56,6 @@ const commands = [
                 name: 'link',
                 type: 3,
                 description: 'The Trigon link',
-                required: true,
-            },
-        ],
-    },
-    {
-        name: 'vegax',
-        description: 'Gets VegaX Key',
-        options: [
-            {
-                name: 'link',
-                type: 3,
-                description: 'The VegaX link',
                 required: true,
             },
         ],
@@ -146,29 +109,8 @@ client.on('interactionCreate', async interaction => {
         }else{
             return;
         }
-    } else if (interaction.commandName === 'hydrogen') {
-        await hydrogen(interaction);
-        if(advertise == true ){
-            await interaction.followUp({ content: serverinvite, ephemeral: true });
-        }else{
-            return;
-        }
-    } else if (interaction.commandName === 'hohohub') {
-        await hohohub(interaction);
-        if(advertise == true ){
-            await interaction.followUp({ content: serverinvite, ephemeral: true });
-        }else{
-            return;
-        }
     } else if (interaction.commandName === 'trigon') {
         await trigon(interaction);
-        if(advertise == true ){
-            await interaction.followUp({ content: serverinvite, ephemeral: true });
-        }else{
-            return;
-        }
-    } else if (interaction.commandName === 'vegax') {
-        await vegax(interaction);
         if(advertise == true ){
             await interaction.followUp({ content: serverinvite, ephemeral: true });
         }else{
@@ -193,7 +135,7 @@ async function fluxus(interaction) {
 
     if (link.startsWith('https://flux.li/android/external/start.php?HWID=')) {
         const hwid = link.split('=')[1].split('&')[0];
-        const apiUrl = `https://stickx.top/api-fluxus/?hwid={hwid}&api_key={apikey}`;
+        const apiUrl = `http://ace-bypass.vercel.app/api/bypass?url=${hwid}&api_key=${apikey}`;
 
         try {
             const start = Date.now(); 
@@ -276,7 +218,7 @@ async function codex(interaction) {
 
     if (link.startsWith('https://mobile.codex.lol?token=') || link.startsWith('https://mobile.codex.loltoken=')) {
         const token = link.split('=')[1];
-        const apiUrl = `https://stickx.top/api-codex/?token=${token}&api_key=${apikey}`;
+        const apiUrl = `http://ace-bypass.vercel.app/api/bypass?url=${hwid}&api_key=${apikey}`;
 
         try {
             const start = Date.now(); 
@@ -360,7 +302,7 @@ async function delta(interaction) {
     if (link.startsWith('https://gateway.platoboost.com/a/8?id=')) {
         const urlParams = new URLSearchParams(new URL(link).search);
         const hwid = urlParams.get('id');
-        const apiUrl = `https://stickx.top/api-delta/?hwid=${hwid}&api_key=${apikey}`;
+        const apiUrl = `http://ace-bypass.vercel.app/api/bypass?url=${hwid}&api_key=${apikey}`;
 
         try {
             const start = Date.now(); 
@@ -427,174 +369,6 @@ async function delta(interaction) {
     }
 }
 
-async function hydrogen(interaction) {
-    const link = interaction.options.getString('link');
-    const box = "```";
-
-    await interaction.reply({
-        embeds: [{
-            title: "Getting Hydrogen Key",
-            thumbnail: { url: 'https://hydrogenexec.com/wp-content/uploads/2024/02/logo-hydrogen-executor.webp' },
-            fields: [
-                { name: 'Status', value: '```May take a while...```' }
-            ]
-        }],
-    });
-
-    if (link.startsWith('https://gateway.platoboost.com/a/2569?id=')) {
-        const urlParams = new URLSearchParams(new URL(link).search);
-        const hwid = urlParams.get('id');
-        const apiUrl = `https://stickx.top/api-hydrogen/?hwid=${hwid}&api_key=${apikey}`;
-
-        try {
-            const start = Date.now(); 
-            const response = await axios.get(apiUrl);
-            const end = Date.now();
-            const time = (end - start) / 1000; 
-
-            if (response.data.key) {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Successfully Got Hydrogen Key",
-                        thumbnail: { url: 'https://hydrogenexec.com/wp-content/uploads/2024/02/logo-hydrogen-executor.webp' },
-                        fields: [
-                            { name: 'Status:', value: `${box}${response.data.key}${box}` },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` },
-                            { name: 'Time Taken:', value: `${box}${time} Seconds${box}` }
-
-
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });            
-            } else {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Failed To Get Hydrogen Key",
-                        thumbnail: { url: 'https://hydrogenexec.com/wp-content/uploads/2024/02/logo-hydrogen-executor.webp' },
-                        fields: [
-                            { name: 'Status:', value: '```Either Hwid Is Invalid Or Api Is Not Working.```' },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` }
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });                       
-            }
-        } catch (error) {
-            console.error(error);
-            await interaction.editReply({
-                embeds: [{
-                    title: "Failed To Get Hydrogen key",
-                    thumbnail: { url: 'https://hydrogenexec.com/wp-content/uploads/2024/02/logo-hydrogen-executor.webp' },
-                    fields: [
-                        { name: 'Status:', value: '```Either Api Is Ofline Or Not Responding.```' },
-                    ],
-                    footer: {
-                        text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                    }
-                }],
-            });         
-        }
-    } else {
-        await interaction.editReply({
-            embeds: [{
-                title: "Invalid Hydrogen Link",
-                fields: [
-                    { name: 'Link', value: `${box}${link}${box}` }
-                ]
-            }]
-        });
-    }
-}
-
-async function hohohub(interaction) {
-    const link = interaction.options.getString('link');
-    const box = "```";
-
-    await interaction.reply({
-        embeds: [{
-            title: "Getting HoHoHub Key",
-            thumbnail: { url: 'https://i1.sndcdn.com/artworks-0Xe3JiFfMkkZF9jZ-BFoWFQ-t500x500.jpg' },
-            fields: [
-                { name: 'Status', value: '```May take a while...```' }
-            ]
-        }],
-    });
-
-    if (link.startsWith('https://hohohubv-ac90f67762c4.herokuapp.com/api/getkeyv2?hwid=')) {
-        const urlParams = new URLSearchParams(new URL(link).search);
-        const hwid = urlParams.get('hwid');
-        const apiUrl = `https://stickx.top/api-hohohubv/?hwid=${hwid}&api_key=${apikey}`;
-
-        try {
-            const start = Date.now(); 
-            const response = await axios.get(apiUrl);
-            const end = Date.now();
-            const time = (end - start) / 1000; 
-
-            if (response.data.key) {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Successfully Got HoHoHub Key",
-            			thumbnail: { url: 'https://i1.sndcdn.com/artworks-0Xe3JiFfMkkZF9jZ-BFoWFQ-t500x500.jpg' },    
-                        fields: [
-                            { name: 'Status:', value: `${box}${response.data.key}${box}` },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` },
-                            { name: 'Time Taken:', value: `${box}${time} Seconds${box}` }
-
-
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });            
-            } else {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Failed To Get HoHoHub Key",
-            			thumbnail: { url: 'https://i1.sndcdn.com/artworks-0Xe3JiFfMkkZF9jZ-BFoWFQ-t500x500.jpg' },              
-                        fields: [
-                            { name: 'Status:', value: '```Either Hwid Is Invalid Or Api Is Not Working.```' },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` }
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });                       
-            }
-        } catch (error) {
-            console.error(error);
-            await interaction.editReply({
-                embeds: [{
-                    title: "Failed To Get HoHoHub key",
-            		thumbnail: { url: 'https://i1.sndcdn.com/artworks-0Xe3JiFfMkkZF9jZ-BFoWFQ-t500x500.jpg' },        
-                    fields: [
-                        { name: 'Status:', value: '```Either Api Is Ofline Or Not Responding.```' },
-                    ],
-                    footer: {
-                        text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                    }
-                }],
-            });         
-        }
-    } else {
-        await interaction.editReply({
-            embeds: [{
-                title: "Invalid HoHoHub Link",
-                fields: [
-                    { name: 'Link', value: `${box}${link}${box}` }
-                ]
-            }]
-        });
-    }
-}
-
 async function trigon(interaction) {
     const link = interaction.options.getString('link');
     const box = "```";
@@ -612,7 +386,7 @@ async function trigon(interaction) {
     if (link.startsWith('https://trigonevo.com/getkey/?hwid=')) {
         const urlParams = new URLSearchParams(new URL(link).search);
         const hwid = urlParams.get('hwid');
-        const apiUrl = `https://stickx.top/api-trigon/?hwid=${hwid}&api_key=${apikey}`;
+        const apiUrl = `http://ace-bypass.vercel.app/api/bypass?url=${hwid}&api_key=${apikey}`;
 
         try {
             const start = Date.now(); 
@@ -678,91 +452,6 @@ async function trigon(interaction) {
         });
     }
 }
-
-async function vegax(interaction) {
-    const link = interaction.options.getString('link');
-    const box = "```";
-
-    await interaction.reply({
-        embeds: [{
-            title: "Getting VegaX Key",
-            thumbnail: { url: 'https://cdn.discordapp.com/attachments/1219783753665351791/1221312421231329340/Screenshot_2024-03-24-11-19-05-54_572064f74bd5f9fa804b05334aa4f912.jpg?ex=66121ed4&is=65ffa9d4&hm=24825a49f9bff70fdc060db29a140b35c23dc770cbce7e80ce3def4cc691d642&' },
-            fields: [
-                { name: 'Status', value: '```May take a while...```' }
-            ]
-        }],
-    });
-
-    if (link.startsWith('https://pandadevelopment.net/getkey?service=vegax&hwid=')) {
-        const urlParams = new URLSearchParams(new URL(link).search);
-        const hwid = urlParams.get('hwid');
-        const apiUrl = `https://stickx.top/api-vegax/?hwid=${hwid}&api_key=${apikey}`;
-
-        try {
-            const start = Date.now(); 
-            const response = await axios.get(apiUrl);
-            const end = Date.now();
-            const time = (end - start) / 1000; 
-
-            if (response.data.key) {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Successfully Got VegaX Key",
-                        thumbnail: { url: 'https://cdn.discordapp.com/attachments/1219783753665351791/1221312421231329340/Screenshot_2024-03-24-11-19-05-54_572064f74bd5f9fa804b05334aa4f912.jpg?ex=66121ed4&is=65ffa9d4&hm=24825a49f9bff70fdc060db29a140b35c23dc770cbce7e80ce3def4cc691d642&' },
-                        fields: [
-                            { name: 'Status:', value: `${box}${response.data.key}${box}` },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` },
-                            { name: 'Time Taken:', value: `${box}${time} Seconds${box}` }
-
-
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });            
-            } else {
-                await interaction.editReply({
-                    embeds: [{
-                        title: "Failed To Get VegaX Key",
-                        thumbnail: { url: 'https://cdn.discordapp.com/attachments/1219783753665351791/1221312421231329340/Screenshot_2024-03-24-11-19-05-54_572064f74bd5f9fa804b05334aa4f912.jpg?ex=66121ed4&is=65ffa9d4&hm=24825a49f9bff70fdc060db29a140b35c23dc770cbce7e80ce3def4cc691d642&' },
-                        fields: [
-                            { name: 'Status:', value: '```Either Hwid Is Invalid Or Api Is Not Working.```' },
-                            { name: 'HWID:', value: `${box}${hwid}${box}` }
-                        ],
-                        footer: {
-                            text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                        }
-                    }],
-                });                       
-            }
-        } catch (error) {
-            console.error(error);
-            await interaction.editReply({
-                embeds: [{
-                    title: "Failed To Get VegaX key",
-                    thumbnail: { url: 'https://cdn.discordapp.com/attachments/1219783753665351791/1221312421231329340/Screenshot_2024-03-24-11-19-05-54_572064f74bd5f9fa804b05334aa4f912.jpg?ex=66121ed4&is=65ffa9d4&hm=24825a49f9bff70fdc060db29a140b35c23dc770cbce7e80ce3def4cc691d642&' },
-                    fields: [
-                        { name: 'Status:', value: '```Either Api Is Ofline Or Not Responding.```' },
-                    ],
-                    footer: {
-                        text: `Requested By ${interaction.user.username} | Made by ${madeby}`
-                    }
-                }],
-            });         
-        }
-    } else {
-        await interaction.editReply({
-            embeds: [{
-                title: "Invalid VegaX Link",
-                fields: [
-                    { name: 'Link', value: `${box}${link}${box}` }
-                ]
-            }]
-        });
-    }
-}
-
 
 
 
